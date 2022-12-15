@@ -1,0 +1,43 @@
+In golang, implement the function fillChannel so that:
+- It creates a channel of integers with a size that is the same as the number of cuntions received.
+- Functions received as an argument should be executed in parallel.
+- As soon as a function finishes, its result should be written to the channel.
+- fillChannel should return the channel immediatley, without waiting for functions to end.
+
+For example, executing main function should produce the following console output:
+Result: 10000000
+Result: 200000000
+
+```
+package main
+
+import "fmt"
+
+func fillChannel(functions ...func() int) chan int {
+	return nil
+}
+
+func exampleFunction(counter int) int {
+	sum := 0
+	for i := 0; i < counter; i++ {
+		sum += 1
+	}
+	return sum
+}
+
+func main() {
+	expensiveFunction := func() int { return exampleFunction(200000000) }
+	cheapFunction := func() int { return exampleFunction(10000000) }
+
+	ch := fillChannel(expensiveFunction, cheapFunction)
+
+	if ch != nil {
+		for i := 0; i < 2; i++ {
+			fmt.Printf("Result: %d\n", <-ch)
+		}
+	}
+}
+
+```
+
+disavantages

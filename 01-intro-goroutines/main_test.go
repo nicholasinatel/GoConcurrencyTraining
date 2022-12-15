@@ -17,6 +17,7 @@ func Test_printSomething(t *testing.T) {
 	var wg sync.WaitGroup
 	wg.Add(1)
 
+	// Runs in the background
 	go printSomething("enceladus", &wg)
 
 	wg.Wait()
